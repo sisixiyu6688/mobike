@@ -1,0 +1,48 @@
+#header{
+  z-index: 10;
+  position: fixed;
+  background-color: #000;
+  width:100%;
+  .row{
+    div{
+      color:#fff;
+      // border:10px solid #fff;
+      height: 50px;
+     
+      em{
+        color: orangered;
+        font-size: 20px;
+        font-family: inherit;
+        line-height: 50px;
+      }
+      span{
+        text-align: center;
+        display: block;   
+        line-height: 50px;
+      }
+    }
+  }
+}
+
+
+
+section{
+  position: relative;
+  #mo-position{
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform : translate(-50%,-50%);    
+    width: 10px;
+    height: 10px;
+    background: red;
+    border-radius: 50%;
+    z-index: 20;
+
+  }
+  #container{
+    // height: 600px;
+    margin: 0px;
+    font: 12px Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial;
+  }
+}

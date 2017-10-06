@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>mobike</title>
+    <!-- 引入bootstrap -->
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css">
+    <!-- 引入base -->
+    <link rel="stylesheet" href="css/base.css">
+    <!-- 引入index -->
+    <link rel="stylesheet" href="css/index.css">
+    <!-- 引入less -->
+    <script src="lib/less/less.js"></script>
+</head>
+<body>
+    <div>
+        <header id="header">
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-ms-2 col-xs-2 mo-user">
+                    <span class="glyphicon glyphicon-erase"></span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-ms-6 col-xs-6 mo-logo">
+                    <em>mobike</em>
+                </div>
+                <div class="col-lg-2 col-md-2 col-ms-2 col-xs-2 mo-search">
+                    <span class="glyphicon glyphicon-search"></span>
+                </div>               
+                <div class="col-lg-2 col-md-2 col-ms-2 col-xs-2 mo-info">
+                    <span class="glyphicon glyphicon-envelope"></span>
+                </div>
+                
+            </div>
+        </header>
+        <section>
+                <div id="container" tabindex="0"></div>
+                <!-- <div id="mo-position"></div> -->
+        </section>
+    </div>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.0&key=91aabb541c4fd26d30c1bc3baa95450c"></script>
+    <script type="text/javascript">
+    //版本3
+    var map = new AMap.Map("container", {
+        resizeEnable: true,
+        // center: [116.397428, 39.90923],//地图中心点
+        zoom: 13 //地图显示的缩放级别
+    });
+    //添加点标记，并使用自己的icon
+    new AMap.Marker({
+        map: map,
+		// position: [116.405467, 39.907761],
+        icon: new AMap.Icon({            
+             size: new AMap.Size(40, 50),  //图标大小
+             image: "http://webapi.amap.com/theme/v1.3/images/newpc/way_btn2.png",
+            imageOffset: new AMap.Pixel(0, -60),
+       
+            
+        })        
+    });
+    $("#container").addClass("row");
+
+
+
+    //版本2
+    //  var map = new AMap.Map('container', {
+    //     resizeEnable: true,
+    //     zoom:11,
+    //     // center: [116.397428, 39.90923]
+    // });
+
+
+
+    //版本1
+    // var map = new AMap.Map('container')
+	
+	// var marker = new AMap.Marker({   
+    // map:map   
+	// });
+
+	// marker.setMap(map);
+
+
+	// AMap.plugin('AMap.ToolBar',function(){
+    // //创建并添加工具条控件
+    // var toolBar = new AMap.ToolBar();
+    // map.addControl(toolBar);
+
+	// })
+
+
+    </script>
+     <!-- <script type="text/javascript" src="https://webapi.amap.com/demos/js/liteToolbar.js"></script> -->
+
+
+    <!-- 引入jQuery -->
+    <script src="lib/jquery/jquery.js"></script>
+    <!-- 引入bootstrap -->
+    <script src="lib/bootstrap/js/bootstrap.js"></script>
+  
+    <script src="js/index.js"></script>
+
+    
+
+</body>
+</html>

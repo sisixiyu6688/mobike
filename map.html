@@ -1,0 +1,152 @@
+<!doctype html>
+
+<head>
+    <!-- <base href="//webapi.amap.com/ui/1.0/ui/misc/PositionPicker/examples/" /> -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+  
+  <title>mobike</title>
+  <!-- 引入bootstrap -->
+  <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css">
+  <!-- 引入base -->
+  <link rel="stylesheet" href="css/base.css">
+
+  <style type="text/css">
+    body,
+    html,
+    #container {
+      height: 100%;
+      margin: 0px;
+    }
+
+    #header {
+      position: fixed;
+      height: 50px;
+      background-color: #000;
+      width: 100%;
+      z-index: 2;
+    }
+
+    #header .row div {
+      color: #fff;
+      height: 50px;
+    }
+
+    #header .row div em {
+      color: orangered;
+      font-size: 20px;
+      font-family: inherit;
+      line-height: 50px;
+    }
+
+    #header .row div span {
+      text-align: center;
+      display: block;
+      line-height: 50px;
+    }
+  </style>
+  <title>地图</title>
+</head>
+
+<body>
+  <div id="header">
+    <div class="row">
+      <div class="col-lg-2 col-md-2 col-ms-2 col-xs-2 mo-user">
+        <span class="glyphicon glyphicon-erase"></span>
+      </div>
+      <div class="col-lg-6 col-md-6 col-ms-6 col-xs-6 mo-logo">
+        <em>mobike</em>
+      </div>
+      <div class="col-lg-2 col-md-2 col-ms-2 col-xs-2 mo-search">
+        <span class="glyphicon glyphicon-search"></span>
+      </div>
+      <div class="col-lg-2 col-md-2 col-ms-2 col-xs-2 mo-info">
+        <span class="glyphicon glyphicon-envelope"></span>
+      </div>
+    </div>
+  </div>
+  <div id="container" tabindex="0"></div>
+  <!-- 引入jQuery -->
+  <script src="lib/jquery/jquery.js"></script>
+  <!-- 引入bootstrap -->
+  <script src="lib/bootstrap/js/bootstrap.js"></script>
+  <!-- <script type="text/javascript" src='//webapi.amap.com/maps?v=1.4.0&key=91aabb541c4fd26d30c1bc3baa95450c&plugin=AMap.ToolBar'></script> -->
+  <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.0&key=91aabb541c4fd26d30c1bc3baa95450c"></script>
+  <!-- <script type="text/javascript">
+    var map = new AMap.Map('container', {
+      resizeEnable: true,
+      zoom: 10,
+    });
+    new AMap.Marker({
+      map: map,
+      icon: new AMap.Icon({
+        size: new AMap.Size(40, 50),  //图标大小
+        image: "http://webapi.amap.com/theme/v1.3/images/newpc/way_btn2.png",
+        imageOffset: new AMap.Pixel(0, -60),
+
+
+      })
+    });
+    
+   </script> -->
+  <script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+  <script type="text/javascript">
+    AMapUI.loadUI(['misc/PositionPicker'], function (PositionPicker) {
+        var map = new AMap.Map('container', {
+            resizeEnable: true,
+            zoom: 20
+        })
+        var positionPicker = new PositionPicker({
+            mode: 'dragMap',//设定为拖拽地图模式，可选'dragMap'、'dragMarker'，默认为'dragMap'
+            map: map//依赖地图对象
+        });
+
+        positionPicker.on('success', function (positionResult) {
+            $("#address").html(positionResult.address);
+            console.log(positionResult.position);
+        })
+
+        positionPicker.on('fail', function (positionResult) {
+            alert("获取地理位置失败");
+            // 海上或海外无法获得地址信息
+        })
+        positionPicker.start();
+
+        map.plugin('AMap.Geolocation', function() {
+            geolocation = new AMap.Geolocation({
+                enableHighAccuracy: true,//是否使用高精度定位，默认:true
+                timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+                buttonOffset: new AMap.Pixel(10, 10),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+                zoomToAccuracy: true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+                buttonPosition:'RB'
+            });
+            map.addControl(geolocation);
+            geolocation.getCurrentPosition();
+            AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
+            AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
+        });
+
+        //解析定位错误信息
+        function onError(data) {
+            document.getElementById('tip').innerHTML = '定位失败';
+        }
+
+        map.plugin('AMap.Scale', function () {
+            scale=new AMap.Scale();
+            map.addControl(scale);
+        })
+
+        var circle = new AMap.Circle({
+            radius: 100,
+            fillOpacity: 0.2,
+            strokeWeight: 1
+        })
+
+        circle.setMap(map);
+    });
+</script>
+
+</body>
+
+</html>
